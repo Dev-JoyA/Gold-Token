@@ -18,8 +18,8 @@ contract GoldToken {
         owner = msg.sender;
     }
 
-    mapping(address => uint256) private _balances;
-    mapping(address => mapping(address => uint256)) private _allowances;
+    mapping(address => uint256) public _balances;
+    mapping(address => mapping(address => uint256)) public _allowances;
 
 
     function totalSupply() public view returns (uint256) {
