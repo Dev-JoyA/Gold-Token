@@ -8,6 +8,8 @@ interface IERC20 {
     function allowance(address owner, address spender) external view returns (uint256);
     function approve(address spender, uint256 amount) external returns (bool);
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
+    function mint(address to, uint256 amount) external;
+    function burn(uint256 amount) external;
 }
 
 contract ERC20 is IERC20 {
@@ -25,9 +27,9 @@ contract ERC20 is IERC20 {
         _;
     }
 
-    constructor() {
-        name = "Gold Token";
-        symbol = "GTKoin";
+    constructor(string memory _name, string memory _symbol) {
+        name = _name;
+        symbol = _symbol;
         owner = msg.sender;
     }
 
@@ -69,12 +71,12 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    function mint(address to, uint256 amount) external onlyOwner {
+    function mint(address to, uint256 amount) public onlyOwner {
         _totalSupply += amount;
         _balances[to] += amount;
     }
 
-    function burn(uint256 amount) external {
+    function burn(uint256 amount) public onlyOwner {
         require(_balances[msg.sender] >= amount, "Not enough tokens to burn");
         _balances[msg.sender] -= amount;
         _totalSupply -= amount;
