@@ -14,10 +14,7 @@ contract ERC20 is IERC20 {
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
-    modifier onlyOwner {
-        require(msg.sender == owner, "Not owner");
-        _;
-    }
+    
 
     constructor(string memory _name, string memory _symbol) {
         name = _name;
@@ -63,12 +60,12 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    function mint(address to, uint256 amount) public onlyOwner {
+    function mint(address to, uint256 amount) public  {
         _totalSupply += amount;
         _balances[to] += amount;
     }
 
-    function burn(uint256 amount) public onlyOwner {
+    function burn(uint256 amount) public  {
         require(_balances[msg.sender] >= amount, "Not enough tokens to burn");
         _balances[msg.sender] -= amount;
         _totalSupply -= amount;
