@@ -21,6 +21,11 @@ contract GoldToken {
     mapping(address => uint256) public _balances;
     mapping(address => mapping(address => uint256)) public _allowances;
 
+    modifier onlyOwner {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
 
     function totalSupply() public view returns (uint256) {
         return erc20.totalSupply();
@@ -47,11 +52,11 @@ contract GoldToken {
         return erc20.transferFrom(from, to, amount);
     }
 
-    function mint(address to, uint256 amount) public {
+    function mint(address to, uint256 amount) public  onlyOwner{
         erc20.mint(to, amount);
     }
 
-    function burn(uint256 amount) public {
+    function burn(uint256 amount) public onlyOwner {
         erc20.burn(amount);
     }
 }
