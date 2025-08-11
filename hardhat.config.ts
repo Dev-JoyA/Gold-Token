@@ -9,6 +9,12 @@ const config: HardhatUserConfig = {
   solidity: "0.8.28",
 
   networks: {
+    hardhat: {
+      forking: {
+        url: "https://eth-mainnet.g.alchemy.com/v2/FxCEYr1E0A1fbfZss8u5e_IyeJlnolII",
+        blockNumber: 23115918, 
+      },
+    },
     "lisk-sepolia" : {
       url : "https://rpc.sepolia-api.lisk.com",
       chainId : 4202,
